@@ -9,19 +9,16 @@ let lineChartInstance;
 let yearBarChartInstance;
 let pieChartInstance;
 
-// ========== THEME TOGGLE ==========
+// THEME TOGGLE
 themeToggle.addEventListener('change', function () {
   document.body.classList.toggle('dark', this.checked);
   document.body.classList.toggle('light', !this.checked);
 });
-
-// Set default theme
 document.body.classList.add('light');
 
-// ========== CHECKBOX SELECTION ==========
+// CHECKBOX SELECTION
 function getSelectedLanguages() {
   const checkboxes = checkboxContainer.querySelectorAll("input[type='checkbox']");
-  
   return Array.from(checkboxes)
     .filter(checkbox => checkbox.checked)
     .map(checkbox => {
@@ -31,13 +28,13 @@ function getSelectedLanguages() {
     });
 }
 
-// ========== FETCHING DATA FROM API ==========
+// FETCH DATA
 async function fetchData(language) {
   const res = await fetch(`${BASE_URL}/api/data/${language}`);
   return { language, data: await res.json() };
 }
 
-// ========== LINE CHART ==========
+// LINE CHART
 async function renderLineChart() {
   const selectedLanguages = getSelectedLanguages();
   if (selectedLanguages.length === 0) return;
@@ -64,7 +61,7 @@ async function renderLineChart() {
   });
 }
 
-// ========== POPULATE YEAR DROPDOWN ==========
+// YEAR DROPDOWN
 async function populateYearDropdown() {
   const res = await fetch(`${BASE_URL}/api/languages`);
   const languages = await res.json();
@@ -79,29 +76,7 @@ async function populateYearDropdown() {
   });
 }
 
-// ========== BAR CHART + PIE CHART FOR SELECTED YEAR ==========
-document.getElementById("yearDropdown").addEventListener("change", async function () {
-  const selectedYear = this.value;
-  if (!selectedYear) return;
-
-  const langs = await fetch(`${BASE_URL}/api/languages`).then(res => res.json());
-
-  const allData = await Promise.all(
-    langs.map(async lang => {
-      const data = await fetch(`${BASE_URL}/api/data/${lang}`).then(res => res.json());
-      const entry = data.find(item => item.year == selectedYear);
-      return { language: lang, count: entry ? entry.count : 0 };
-    })
-  );
-
-  const filtered = allData.filter(d => d.count > 0);
-  const labels = filtered.map(d => d.language);
-  const values = filtered.map(d => d.count);
-
-  renderBarChartFromYearData(labels, values, selectedYear);
-  renderPieChart(labels, values, selectedYear);
-});
-
+// BAR CHART
 function renderBarChartFromYearData(labels, data, year) {
   const ctxYear = document.getElementById('yearWiseChart').getContext('2d');
   if (yearBarChartInstance) yearBarChartInstance.destroy();
@@ -125,6 +100,7 @@ function renderBarChartFromYearData(labels, data, year) {
   });
 }
 
+// PIE CHART
 function renderPieChart(labels, data, year) {
   const ctxPie = document.getElementById("pieChart").getContext("2d");
   if (pieChartInstance) pieChartInstance.destroy();
@@ -150,21 +126,38 @@ function renderPieChart(labels, data, year) {
   });
 }
 
-// ========== RANDOM COLOR GENERATOR ==========
+// COLOR
 function getRandomColor() {
   const color = Math.floor(Math.random() * 16777215).toString(16);
   return `#${color.padStart(6, '0')}`;
 }
 
-// ========== INIT ==========
+// INIT
 window.onload = () => {
   renderLineChart();
   populateYearDropdown();
-};
 
-// ========== DEBOUNCED CHECKBOX LISTENER ==========
-let debounceTimer;
-checkboxContainer.addEventListener('change', () => {
-  clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(renderLineChart, 300);
-});
+  document.getElementById("yearDropdown").addEventListener("change", async function () {
+    const selectedYear = this.value;
+    if (!selectedYear) return;
+
+    const langs = await fetch(`${BASE_URL}/api/languages`).then(res => res.json());
+
+    const allData = await Promise.all(
+      langs.map(async lang => {
+        const data = await fetch(`${BASE_URL}/api/data/${lang}`).then(res => res.json());
+        const entry = data.find(item => item.year == selectedYear);
+        return { language: lang, count: entry ? entry.count : 0 };
+      })
+    );
+
+    const filtered = allData.filter(d => d.count > 0);
+    const labels = filtered.map(d => d.language);
+    const counts = filtered.map(d => d.count);
+
+    renderBarChartFromYearData(labels, counts, selectedYear);
+    renderPieChart(labels, counts, selectedYear);
+  });
+
+  checkboxContainer.addEventListener("change", renderLineChart);
+};
