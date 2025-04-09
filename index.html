@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Language Popularity Analysis</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+	<label style="position: fixed; top: 20px; right: 30px; z-index: 999;">
+  <input type="checkbox" id="themeToggle" style="margin-right: 8px;" />
+  Dark Mode
+</label>
+
+  <h1>Trend Analysis of Programming Languages (StackOverflow Data)</h1>
+
+  <h3>Choose Languages you want to analyse:</h3>
+  <div id="checkboxContainer">
+<label class="language-checkbox selected">
+  <input type="checkbox" checked value="Python" />
+  Python
+</label>
+<label class="language-checkbox">
+  <input type="checkbox" value="Java" />
+  Java
+</label>
+
+<label class="language-checkbox">
+  <input type="checkbox" value="C++" />
+  C++
+</label>
+
+<label class="language-checkbox">
+  <input type="checkbox" value="JavaScript" />
+  JavaScript
+</label>
+<label class="language-checkbox">
+  <input type="checkbox" value="C#" />
+  C#
+</label>
+  </div>
+
+  <div class="container">
+    <h2>Popularity of Programming Languages (Line Chart)</h2>
+    <canvas id="lineChart" width="900" height="400"></canvas>
+
+
+
+    <h2>Select a Year to View Language Popularity</h2>
+    <div class="year-select-container" style="text-align: center; margin: 20px 0;">
+      <label for="yearDropdown" style="font-weight: bold; font-size: 18px;">Select a Year:</label>
+      <select id="yearDropdown" style="padding: 6px 10px; font-size: 16px;">
+        <option value="">-- Select Year --</option>
+      </select>
+    </div>
+
+    <canvas id="yearWiseChart" width="900" height="400"></canvas>
+  </div>
+
+  <!-- JS Code -->
+  <script src="/static/script.js"></script>
+</body>
+</html>
+
