@@ -43,7 +43,7 @@ function getSelectedLanguages() {
 }
 
 async function fetchData(language) {
-  const res = await fetch(`/api/data/${language}`);
+const res = await fetch(`https://language-trend-analysis.onrender.com/api/data/${language}`);
   return { language, data: await res.json() };
 }
 
