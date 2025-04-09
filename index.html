@@ -1,18 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trend Analysis of Programming Languages</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <body>
+
   <!-- Theme Toggle -->
   <label style="position: fixed; top: 20px; right: 30px; z-index: 999;">
     <input type="checkbox" id="themeToggle" style="margin-right: 8px;" />
     Dark Mode
   </label>
 
-  <!-- START OF MAIN CONTENT -->
+  <!-- MAIN CONTENT -->
   <div class="container">
 
     <h1>Trend Analysis of Programming Languages (StackOverflow Data)</h1>
 
     <h3>Choose Languages you want to analyse:</h3>
     <div id="checkboxContainer">
-      <!-- Checkbox Labels -->
       <label class="language-checkbox selected">
         <input type="checkbox" checked value="Python" />
         Python
@@ -48,15 +57,15 @@
       </select>
     </div>
 
-    <!-- Yearwise Chart -->
+    <!-- Yearwise Bar Chart -->
     <canvas id="yearWiseChart" width="900" height="400"></canvas>
 
     <!-- Pie Chart -->
     <h2>Language Share in Selected Year (Pie Chart)</h2>
     <canvas id="pieChart" width="900" height="400"></canvas>
 
-  </div> <!-- END OF CONTAINER -->
+  </div>
 
-  <!-- JS Code -->
   <script src="script.js"></script>
 </body>
+</html>
