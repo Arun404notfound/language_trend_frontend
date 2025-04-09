@@ -2,70 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trend Analysis of Programming Languages</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Language Trend Analysis</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body.light {
+      background-color: #ffffff;
+      color: #000;
+    }
+    body.dark {
+      background-color: #1e1e1e;
+      color: #fff;
+    }
+    .language-checkbox.selected {
+      font-weight: bold;
+    }
+  </style>
 </head>
-<body>
+<body class="light">
+  <h1>Language Trend Analysis 📈</h1>
 
-  <!-- Theme Toggle -->
-  <label style="position: fixed; top: 20px; right: 30px; z-index: 999;">
-    <input type="checkbox" id="themeToggle" style="margin-right: 8px;" />
-    Dark Mode
+  <label>
+    <input type="checkbox" id="themeToggle" />
+    Toggle Dark Mode
   </label>
 
-  <!-- MAIN CONTENT -->
-  <div class="container">
-
-    <h1>Trend Analysis of Programming Languages (StackOverflow Data)</h1>
-
-    <h3>Choose Languages you want to analyse:</h3>
-    <div id="checkboxContainer">
-      <label class="language-checkbox selected">
-        <input type="checkbox" checked value="Python" />
-        Python
-      </label>
-      <label class="language-checkbox">
-        <input type="checkbox" value="Java" />
-        Java
-      </label>
-      <label class="language-checkbox">
-        <input type="checkbox" value="C++" />
-        C++
-      </label>
-      <label class="language-checkbox">
-        <input type="checkbox" value="JavaScript" />
-        JavaScript
-      </label>
-      <label class="language-checkbox">
-        <input type="checkbox" value="C#" />
-        C#
-      </label>
-    </div>
-
-    <!-- Line Chart -->
-    <h2>Popularity of Programming Languages (Line Chart)</h2>
-    <canvas id="lineChart" width="900" height="400"></canvas>
-
-    <!-- Year Dropdown -->
-    <h2>Select a Year to View Language Popularity</h2>
-    <div class="year-select-container" style="text-align: center; margin: 20px 0;">
-      <label for="yearDropdown" style="font-weight: bold; font-size: 18px;">Select a Year:</label>
-      <select id="yearDropdown" style="padding: 6px 10px; font-size: 16px;">
-        <option value="">-- Select Year --</option>
-      </select>
-    </div>
-
-    <!-- Yearwise Bar Chart -->
-    <canvas id="yearWiseChart" width="900" height="400"></canvas>
-
-    <!-- Pie Chart -->
-    <h2>Language Share in Selected Year (Pie Chart)</h2>
-    <canvas id="pieChart" width="900" height="400"></canvas>
-
+  <div id="checkboxContainer">
+    <label class="language-checkbox"><input type="checkbox" value="Python"> Python</label>
+    <label class="language-checkbox"><input type="checkbox" value="Java"> Java</label>
+    <label class="language-checkbox"><input type="checkbox" value="C++"> C++</label>
+    <label class="language-checkbox"><input type="checkbox" value="JavaScript"> JavaScript</label>
   </div>
 
-  <script src="script.js"></script>
+  <canvas id="lineChart" width="400" height="200"></canvas>
+
+  <hr>
+
+  <label for="yearDropdown">Select Year:</label>
+  <select id="yearDropdown"></select>
+
+  <canvas id="yearWiseChart" width="400" height="200"></canvas>
+  <canvas id="pieChart" width="400" height="200"></canvas>
+
+  <!-- Link to external JS -->
+  <script src="main.js"></script>
 </body>
 </html>
